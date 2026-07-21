@@ -1,0 +1,90 @@
+name: Instagram Autopost
+
+on:
+  schedule:
+    # 16:00 UTC daily — adjust to whenever your audience is most active.
+    # Cron is evaluated in UTC regardless of where the runner executes.
+    - cron: "0 16 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Generate + render only, skip the actual Instagram publish"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+# Never let two runs race on state/rotation_state.json.
+concurrency:
+  group: instagram-autopost
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Select next post + render graphic
+        id: generate
+        run: python3 scripts/generate_post.py
+
+      - name: Commit generated asset
+        run: |
+          git config user.name "pfa-content-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add content/generated state/rotation_state.json state/history.json
+          git commit -m "chore(content): generate post ${{ steps.generate.outputs.slug }}"
+          git push
+
+      - name: Resolve public image URL
+        id: url
+        run: |
+          echo "url=https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/${{ steps.generate.outputs.image_file }}" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for raw URL to become fetchable
+        run: |
+          for i in $(seq 1 20); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "${{ steps.url.outputs.url }}")
+            if [ "$code" = "200" ]; then
+              echo "Image URL is live."
+              exit 0
+            fi
+            echo "Attempt $i: HTTP $code, retrying in 5s..."
+            sleep 5
+          done
+          echo "::error::Raw image URL never became available: ${{ steps.url.outputs.url }}"
+          exit 1
+
+      - name: Publish to Instagram
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ 17841464660460934 }}
+        run: |
+          DRY_RUN_FLAG=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            DRY_RUN_FLAG="--dry-run"
+          fi
+          python3 scripts/publish_post.py \
+            --meta "${{ steps.generate.outputs.meta_file }}" \
+            --image-url "${{ steps.url.outputs.url }}" \
+            $DRY_RUN_FLAG
+
+      - name: Commit publish result
+        if: always()
+        run: |
+          git config user.name "pfa-content-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add state/history.json
+          git diff --cached --quiet || git commit -m "chore(content): record publish result for ${{ steps.generate.outputs.slug }}"
+          git diff --cached --quiet || git push

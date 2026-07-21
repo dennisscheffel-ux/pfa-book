@@ -1,0 +1,206 @@
+{
+  "brand": {
+    "name": "Producer Flow Academy",
+    "book_title": "The Producer Flow Method",
+    "author_display": "Dayne S",
+    "author_real": "Dennis Scheffel",
+    "author_location": "Zürich, Switzerland",
+    "price": "€47",
+    "site_url": "https://www.producerflowacademy.com",
+    "checkout_url": "https://buy.stripe.com/bJe9AT0wYa1Kefe0Q0gIo00",
+    "instagram_handle": "producerflowacademy"
+  },
+  "credibility": {
+    "labels": ["Diynamic Music", "Defected", "Get Physical"],
+    "collaborators": ["M.A.N.D.Y.", "Sascha Braemer"],
+    "stats": [
+      { "id": "streams", "number": "50M+", "label": "Streams by the author" },
+      { "id": "years", "number": "20+", "label": "Years of production experience" },
+      { "id": "productions", "number": "100s", "label": "Productions released" },
+      { "id": "labels", "number": "3", "label": "Major labels: Diynamic, Defected, Get Physical" }
+    ]
+  },
+  "pain_points": [
+    {
+      "id": "pain_tutorials",
+      "eyebrow": "Sound familiar?",
+      "headline": "Drowning in tutorials",
+      "body": "Endless YouTube videos, sample packs, plugin reviews — yet your tracks still don't sound like the records you love."
+    },
+    {
+      "id": "pain_inspiration",
+      "eyebrow": "Sound familiar?",
+      "headline": "Waiting for inspiration",
+      "body": "Some weeks you finish nothing. Some months barely a track. Your output depends on how you feel rather than your system."
+    },
+    {
+      "id": "pain_identity",
+      "eyebrow": "Sound familiar?",
+      "headline": "No signature sound",
+      "body": "You can produce, but you can't point to a track and say “that's unmistakably me.” Your sound is still someone else's."
+    },
+    {
+      "id": "pain_truth",
+      "eyebrow": "The real reason",
+      "headline": "“Great tracks are made in the creative stages — not saved in the mix.”",
+      "body": "If your sound selection is poor, mixing can't fix it. If your composition lacks emotion, EQ won't add it. The magic happens before you ever touch a compressor."
+    }
+  ],
+  "insights": [
+    {
+      "id": "insight_stop_mixing",
+      "eyebrow": "Big Shift 01",
+      "headline": "Stop mixing. Start creating.",
+      "body": "80% of your energy goes into the creative stages — ideas, patterns, sound design, editing. Mixing is the final 5% polish. Great tracks are built, not mixed.",
+      "pull": "Great tracks are made during selection, sound design, and editing — not in the mix."
+    },
+    {
+      "id": "insight_patterns",
+      "eyebrow": "Big Shift 02",
+      "headline": "Think in patterns, not timelines.",
+      "body": "Instead of building linearly, think in 3–4 distinct mood blocks: Intro, Break, Drop, Bridge. Each with its own emotional character. Then connect them like a DJ would in a live set.",
+      "pull": "When crafting patterns, think like a producer. When arranging them, think like a DJ."
+    },
+    {
+      "id": "insight_authenticity",
+      "eyebrow": "Big Shift 03",
+      "headline": "Authenticity over trends.",
+      "body": "When you create music truly for yourself, you naturally make the best possible music for listeners. No one wants to hear the expected sound — they want to be surprised and overwhelmed.",
+      "pull": "Authenticity taps into your deepest creative instincts and produces music that resonates."
+    },
+    {
+      "id": "insight_system",
+      "eyebrow": "Big Shift 04",
+      "headline": "Inspiration is a system, not a mood.",
+      "body": "Stop waiting for inspiration to strike. The Producer Flow Method gives you a repeatable process that works in any mental state — turning music production from a feeling into a craft.",
+      "pull": "A well-defined workflow isn't about rigid rules — it's about creating structure that supports your creativity."
+    }
+  ],
+  "chapters": [
+    {
+      "id": "ch_intro",
+      "number": "Intro",
+      "title": "Welcome to Producer Flow",
+      "body": "Why most producers are working backwards — and the different approach that changes everything. The real problem isn't your mixing."
+    },
+    {
+      "id": "ch_1a",
+      "number": "Ch. 1",
+      "title": "Understanding the Flow Principle",
+      "body": "The four essential roles every modern producer must master — Composer, Sound Designer, Arranger, Mixing Engineer — and how to switch between them consciously instead of chaotically.",
+      "tag": "Core Framework"
+    },
+    {
+      "id": "ch_1b",
+      "number": "Ch. 1",
+      "title": "The Five Stages of Creation",
+      "body": "Ideas → Sorting & Pattern Creation → Editing & Pattern Development → Storytelling & Dynamics → Mixing. Where the real work happens, and why the mix is only the final 5%.",
+      "tag": "Production System"
+    },
+    {
+      "id": "ch_1c",
+      "number": "Ch. 1",
+      "title": "The DJ Mindset for Arrangement",
+      "body": "The breakthrough insight that transforms arrangements. Think like a producer when creating patterns — think like a DJ when connecting them. Filter sweeps, reverb sends, fades and energy flow.",
+      "tag": "Arrangement"
+    },
+    {
+      "id": "ch_2",
+      "number": "Ch. 2",
+      "title": "Finding Your Unique Sound",
+      "body": "Your unique sound isn't about samples — it's about understanding what you're looking for and why. The Sound Palette Exercise, the power of Setups, and how authenticity over trends creates lasting impact.",
+      "tag": "Identity & Sound"
+    },
+    {
+      "id": "ch_3",
+      "number": "Ch. 3",
+      "title": "Quick Start Workflow Guide",
+      "body": "The Seven-Category Plugin System. The Two-Plugin Rule. Daily routines for consistency. A complete session framework — from the first 15 minutes of idea capture to the final 20 minutes of polish.",
+      "tag": "Workflow System"
+    },
+    {
+      "id": "ch_end",
+      "number": "End",
+      "title": "Your Next Steps",
+      "body": "Immediate action steps for this week, this month, and ongoing. How to implement the complete Producer Flow Method starting today."
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "testi_henson",
+      "quote": "I went from struggling to finish 5–12 tracks a year to sometimes finishing 5–7 quality tracks in a single week. It's like psychotherapy for producers — helping you cut through all the noise and wrong beliefs you've built up.",
+      "name": "Henson",
+      "role": "Eklektisch / Jeahmon",
+      "result": "Signed: Atlant, Jehamonn, Abellum"
+    },
+    {
+      "id": "testi_omar",
+      "quote": "After implementing his very specific advice on arrangement, mixing and career planning I can say I've reached a new level in my productions. My long-term vision as an artist has also become clearer.",
+      "name": "Omar Guti",
+      "role": "Sound+Creativity Blog",
+      "result": "Elevated to label-ready tracks"
+    },
+    {
+      "id": "testi_philip",
+      "quote": "He really listens and tries to come closest to what has been discussed. Neither in the studio nor in our private conversations was there ever a dull moment. A very special creative partner.",
+      "name": "Philip Jung / M.A.N.D.Y.",
+      "role": "Get Physical Music",
+      "result": "10+ years collaboration"
+    }
+  ],
+  "offer_items": [
+    {
+      "id": "get_ebook",
+      "number": "01",
+      "title": "The Complete eBook — PDF",
+      "body": "The full Producer Flow Method guide. Read on any device, annotate, revisit. Yours forever, no subscription."
+    },
+    {
+      "id": "get_framework",
+      "number": "02",
+      "title": "The Flow Principle Framework",
+      "body": "A complete production system: the 4 roles, 5 stages, pattern-based arrangement, and the DJ mindset for structuring tracks."
+    },
+    {
+      "id": "get_identity",
+      "number": "03",
+      "title": "Sound Identity System",
+      "body": "The Sound Palette Exercise, the Setup Method, and a clear path to developing your signature sound rather than chasing trends."
+    },
+    {
+      "id": "get_workflow",
+      "number": "04",
+      "title": "Quick Start Workflow Guide",
+      "body": "The 7-category plugin system, the Two-Plugin Rule, daily routines, and a full session framework you can use from day one."
+    },
+    {
+      "id": "get_questions",
+      "number": "05",
+      "title": "Reflective Questions",
+      "body": "Practical exercises and reflective prompts for every stage of production — so the method becomes your natural way of working."
+    },
+    {
+      "id": "get_insight",
+      "number": "06",
+      "title": "20+ Years of Insight",
+      "body": "Hard-won lessons from 50M+ streams, major label releases, and coaching dozens of producers to consistent, authentic output."
+    }
+  ],
+  "for_who": {
+    "yes": [
+      "You know your DAW but consistently struggle to finish tracks",
+      "Your productions sound okay but don't have a clear, signature identity",
+      "You wait for inspiration instead of having a system that creates it",
+      "You've watched hundreds of tutorials but something is still missing",
+      "You want to produce consistently and make music that's authentically yours",
+      "You're serious about developing as an artist, not just as a technician"
+    ],
+    "no": [
+      "You're a complete beginner who hasn't opened a DAW yet",
+      "You're only looking for mixing or mastering tutorials",
+      "You want a template or preset that makes music for you",
+      "You're not open to rethinking how you approach production",
+      "You want genre-specific tutorials rather than a universal creative method"
+    ]
+  }
+}

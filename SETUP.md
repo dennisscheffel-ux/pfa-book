@@ -62,7 +62,7 @@ just repeat steps 3-5 and update the secret below.
 | Secret name       | Value                                  |
 |-------------------|-----------------------------------------|
 | `EAAMPoi1ZAxfIBSKnIfpzb7fnonY2ZCn5DUaBTuEzliozGpxcA91j7UlLuERI4gWKesYLNprFXhQgSV6ZBgmzk76g4ZB7AV6D447aeWnQSe7bC5ZAKATEXI9xPFcpGZBudtLv0TsLEX5AaWDE366oZAmUpLNZBZCZByfgF6InezyWCewSE64adKVOFopInlWrDCR4ZCY9asUN0wH7gr7ZBTABZCp8RB88ZD` | The Page access token from step 3.4     |
-| `IG_USER_ID`      | The Instagram Business Account ID from step 3.5 |
+| `17841464660460934`      | The Instagram Business Account ID from step 3.5 |
 
 ## 5. Allow the workflow to push back
 

@@ -69,7 +69,7 @@ jobs:
       - name: Publish to Instagram
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-          IG_USER_ID: ${{ 17841464660460934 }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
         run: |
           DRY_RUN_FLAG=""
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then

@@ -6,9 +6,10 @@
     "card_type": "quote",
     "cycle": 1,
     "image_file": "content/generated/2026-07-21-pain_truth.png",
-    "caption_excerpt": "Save this one.\n\n\u201cGreat tracks are made in the creative stages \u2014 not saved in the mix.\u201d\n\nIf your soun",
+    "caption_excerpt": "Save this one.\n\n“Great tracks are made in the creative stages — not saved in the mix.”\n\nIf your soun",
     "status": "generated",
-    "timestamp": "2026-07-21T19:19:03.683369+00:00"
+    "timestamp": "2026-07-21T19:19:03.683369+00:00",
+    "slug": "2026-07-21-pain_truth"
   },
   {
     "date": "2026-07-21",
@@ -17,9 +18,10 @@
     "card_type": "insight",
     "cycle": 1,
     "image_file": "content/generated/2026-07-21-insight_stop_mixing.png",
-    "caption_excerpt": "Unlearn this: Stop mixing. Start creating.\n\n80% of your energy goes into the creative stages \u2014 ideas",
+    "caption_excerpt": "Unlearn this: Stop mixing. Start creating.\n\n80% of your energy goes into the creative stages — ideas",
     "status": "generated",
-    "timestamp": "2026-07-21T21:21:01.857485+00:00"
+    "timestamp": "2026-07-21T21:21:01.857485+00:00",
+    "slug": "2026-07-21-insight_stop_mixing"
   },
   {
     "date": "2026-07-22",
@@ -30,7 +32,8 @@
     "image_file": "content/generated/2026-07-22-ch_1a.png",
     "caption_excerpt": "What you'll actually learn (Understanding the Flow Principle):\n\nThe four essential roles every moder",
     "status": "generated",
-    "timestamp": "2026-07-22T17:10:54.806300+00:00"
+    "timestamp": "2026-07-22T17:10:54.806300+00:00",
+    "slug": "2026-07-22-ch_1a"
   },
   {
     "date": "2026-07-23",
@@ -39,9 +42,10 @@
     "card_type": "testimonial",
     "cycle": 1,
     "image_file": "content/generated/2026-07-23-testi_henson.png",
-    "caption_excerpt": "This is why the method exists.\n\n\u201cI went from struggling to finish 5\u201312 tracks a year to sometimes fi",
+    "caption_excerpt": "This is why the method exists.\n\n“I went from struggling to finish 5–12 tracks a year to sometimes fi",
     "status": "generated",
-    "timestamp": "2026-07-23T17:13:40.959837+00:00"
+    "timestamp": "2026-07-23T17:13:40.959837+00:00",
+    "slug": "2026-07-23-testi_henson"
   },
   {
     "date": "2026-07-24",
@@ -50,9 +54,10 @@
     "card_type": "stat",
     "cycle": 1,
     "image_file": "content/generated/2026-07-24-years.png",
-    "caption_excerpt": "20+ \u2014 Years of production experience.\n\nEvery page of the book is built on this, not on guesswork.\n\nT",
+    "caption_excerpt": "20+ — Years of production experience.\n\nEvery page of the book is built on this, not on guesswork.\n\nT",
     "status": "generated",
-    "timestamp": "2026-07-24T11:39:48.948792+00:00"
+    "timestamp": "2026-07-24T11:39:48.948792+00:00",
+    "slug": "2026-07-24-years"
   },
   {
     "date": "2026-07-24",
@@ -61,9 +66,10 @@
     "card_type": "offer",
     "cycle": 1,
     "image_file": "content/generated/2026-07-24-get_ebook.png",
-    "caption_excerpt": "Part of what you get: The Complete eBook \u2014 PDF.\n\nThe full Producer Flow Method guide. Read on any de",
+    "caption_excerpt": "Part of what you get: The Complete eBook — PDF.\n\nThe full Producer Flow Method guide. Read on any de",
     "status": "generated",
-    "timestamp": "2026-07-24T17:24:38.162635+00:00"
+    "timestamp": "2026-07-24T17:24:38.162635+00:00",
+    "slug": "2026-07-24-get_ebook"
   },
   {
     "date": "2026-07-24",
@@ -72,9 +78,10 @@
     "card_type": "qualifier",
     "cycle": 1,
     "image_file": "content/generated/2026-07-24-qualifier_no.png",
-    "caption_excerpt": "Honesty first. The Producer Flow Method is not for you if:\n\n\u2192 You're a complete beginner who hasn't ",
+    "caption_excerpt": "Honesty first. The Producer Flow Method is not for you if:\n\n→ You're a complete beginner who hasn't ",
     "status": "generated",
-    "timestamp": "2026-07-24T19:03:29.824034+00:00"
+    "timestamp": "2026-07-24T19:03:29.824034+00:00",
+    "slug": "2026-07-24-qualifier_no"
   },
   {
     "date": "2026-07-24",
@@ -83,9 +90,10 @@
     "card_type": "problem",
     "cycle": 1,
     "image_file": "content/generated/2026-07-24-pain_inspiration.png",
-    "caption_excerpt": "Be honest \u2014 does this sound like you?\n\n\u201cWaiting for inspiration\u201d\n\nSome weeks you finish nothing. Som",
+    "caption_excerpt": "Be honest — does this sound like you?\n\n“Waiting for inspiration”\n\nSome weeks you finish nothing. Som",
     "status": "generated",
-    "timestamp": "2026-07-24T20:33:13.846839+00:00"
+    "timestamp": "2026-07-24T20:33:13.846839+00:00",
+    "slug": "2026-07-24-pain_inspiration"
   },
   {
     "date": "2026-07-24",
@@ -94,9 +102,10 @@
     "card_type": "insight",
     "cycle": 1,
     "image_file": "content/generated/2026-07-24-insight_patterns.png",
-    "caption_excerpt": "Unlearn this: Think in patterns, not timelines.\n\nInstead of building linearly, think in 3\u20134 distinct",
+    "caption_excerpt": "Unlearn this: Think in patterns, not timelines.\n\nInstead of building linearly, think in 3–4 distinct",
     "status": "generated",
-    "timestamp": "2026-07-24T20:53:48.818150+00:00"
+    "timestamp": "2026-07-24T20:53:48.818150+00:00",
+    "slug": "2026-07-24-insight_patterns"
   },
   {
     "date": "2026-07-24",
@@ -105,9 +114,10 @@
     "card_type": "chapter",
     "cycle": 1,
     "image_file": "content/generated/2026-07-24-ch_1b.png",
-    "caption_excerpt": "What you'll actually learn (The Five Stages of Creation):\n\nIdeas \u2192 Sorting & Pattern Creation \u2192 Edit",
+    "caption_excerpt": "What you'll actually learn (The Five Stages of Creation):\n\nIdeas → Sorting & Pattern Creation → Edit",
     "status": "generated",
-    "timestamp": "2026-07-24T20:58:28.734132+00:00"
+    "timestamp": "2026-07-24T20:58:28.734132+00:00",
+    "slug": "2026-07-24-ch_1b"
   },
   {
     "date": "2026-07-24",
@@ -116,9 +126,10 @@
     "card_type": "testimonial",
     "cycle": 1,
     "image_file": "content/generated/2026-07-24-testi_omar.png",
-    "caption_excerpt": "This is why the method exists.\n\n\u201cAfter implementing his very specific advice on arrangement, mixing ",
+    "caption_excerpt": "This is why the method exists.\n\n“After implementing his very specific advice on arrangement, mixing ",
     "status": "generated",
-    "timestamp": "2026-07-24T21:09:41.784783+00:00"
+    "timestamp": "2026-07-24T21:09:41.784783+00:00",
+    "slug": "2026-07-24-testi_omar"
   },
   {
     "date": "2026-07-24",
@@ -127,9 +138,12 @@
     "card_type": "stat",
     "cycle": 1,
     "image_file": "content/generated/2026-07-24-labels.png",
-    "caption_excerpt": "3 \u2014 Major labels: Diynamic, Defected, Get Physical.\n\nEvery page of the book is built on this, not on",
-    "status": "generated",
-    "timestamp": "2026-07-24T21:14:32.613850+00:00"
+    "caption_excerpt": "3 — Major labels: Diynamic, Defected, Get Physical.\n\nEvery page of the book is built on this, not on",
+    "status": "published",
+    "timestamp": "2026-07-24T21:14:32.613850+00:00",
+    "slug": "2026-07-24-labels",
+    "ig_media_id": "18346082887169401",
+    "image_url": "https://raw.githubusercontent.com/dennisscheffel-ux/pfa-book/main/content/generated/2026-07-24-labels.png"
   },
   {
     "slug": "2026-07-24-get_framework",

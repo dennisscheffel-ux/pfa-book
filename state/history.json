@@ -86,5 +86,16 @@
     "caption_excerpt": "Be honest \u2014 does this sound like you?\n\n\u201cWaiting for inspiration\u201d\n\nSome weeks you finish nothing. Som",
     "status": "generated",
     "timestamp": "2026-07-24T20:33:13.846839+00:00"
+  },
+  {
+    "date": "2026-07-24",
+    "item_id": "insight_patterns",
+    "pillar": "insight",
+    "card_type": "insight",
+    "cycle": 1,
+    "image_file": "content/generated/2026-07-24-insight_patterns.png",
+    "caption_excerpt": "Unlearn this: Think in patterns, not timelines.\n\nInstead of building linearly, think in 3\u20134 distinct",
+    "status": "generated",
+    "timestamp": "2026-07-24T20:53:48.818150+00:00"
   }
 ]

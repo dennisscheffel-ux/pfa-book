@@ -108,5 +108,16 @@
     "caption_excerpt": "What you'll actually learn (The Five Stages of Creation):\n\nIdeas \u2192 Sorting & Pattern Creation \u2192 Edit",
     "status": "generated",
     "timestamp": "2026-07-24T20:58:28.734132+00:00"
+  },
+  {
+    "date": "2026-07-24",
+    "item_id": "testi_omar",
+    "pillar": "testimonial",
+    "card_type": "testimonial",
+    "cycle": 1,
+    "image_file": "content/generated/2026-07-24-testi_omar.png",
+    "caption_excerpt": "This is why the method exists.\n\n\u201cAfter implementing his very specific advice on arrangement, mixing ",
+    "status": "generated",
+    "timestamp": "2026-07-24T21:09:41.784783+00:00"
   }
 ]

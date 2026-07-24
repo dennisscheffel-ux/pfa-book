@@ -1,9 +1,11 @@
 # Instagram Autopost — Setup
 
-This repo generates an on-brand Instagram graphic + caption on a schedule and
-posts it automatically via the Instagram Graph API. Everything except the
-Meta/Instagram credentials is already wired up — this doc covers the
-one-time setup only you can do (it requires your own Meta login).
+This repo generates an on-brand Instagram graphic + caption on a schedule,
+opens a GitHub Issue so you can review it, and only posts it via the
+Instagram Graph API once you label that issue `approved` (label it
+`declined` to skip it instead). Everything except the Meta/Instagram
+credentials is already wired up — this doc covers the one-time setup only
+you can do (it requires your own Meta login).
 
 ## 1. Prerequisites
 
@@ -82,15 +84,19 @@ S3 bucket or Cloudinary) before publishing.
 
 ## 7. Test it
 
-**Actions tab → "Instagram Autopost" → Run workflow** → tick `dry_run` →
-run. This renders a real graphic and prints the real caption but skips the
-actual Instagram publish call — check the Action logs to see the image
-that got committed and the caption text. Once that looks right, run it
-again with `dry_run` unchecked to make the first real post.
+**Actions tab → "Instagram Generate + Review" → Run workflow** → run. This
+renders a real graphic, commits it, and opens a GitHub Issue titled
+"Review: &lt;date&gt;-&lt;item&gt;" with the image and caption. Add the
+`approved` label on that issue to actually publish it (or `declined` to
+skip it) — a second workflow, "Instagram Publish on Approval", picks up
+that label automatically and either publishes for real or closes the
+issue as skipped.
 
-After that, it runs automatically on the schedule in
-`.github/workflows/instagram-autopost.yml` (defaults to daily at 16:00 UTC
-— edit the cron expression to change cadence/time).
+After that, "Instagram Generate + Review" runs automatically on the
+schedule in `.github/workflows/instagram-generate-review.yml` (defaults to
+daily at 16:00 UTC — edit the cron expression to change cadence/time). It
+skips generating a new candidate whenever one is already awaiting review,
+so at most one issue is ever open at a time.
 
 ## Customizing content
 
@@ -103,9 +109,10 @@ After that, it runs automatically on the schedule in
   match `producer_flow_method_landing.html`).
 - `state/rotation_state.json` / `state/history.json` — posting rotation
   and log. Delete `rotation_state.json` to force a fresh reshuffled cycle;
-  `history.json` is a running audit log of everything posted.
+  `history.json` is a running audit log of every post generated, and its
+  status (`pending_review`, `published`, `declined`, or `failed`).
 - Posting time/frequency — edit the `cron:` line in
-  `.github/workflows/instagram-autopost.yml`.
+  `.github/workflows/instagram-generate-review.yml`.
 
 The generator (`scripts/generate_post.py`) produces a caption + image pair
 independent of Instagram, so the same output could later feed a second

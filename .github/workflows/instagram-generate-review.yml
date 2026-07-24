@@ -1,0 +1,112 @@
+name: Instagram Generate + Review
+
+on:
+  schedule:
+    # 16:00 UTC daily — adjust to whenever your audience is most active.
+    - cron: "0 16 * * *"
+  workflow_dispatch:
+    inputs:
+      force_new:
+        description: "Generate a new candidate even if one is already pending review"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+# Never let two runs race on state/rotation_state.json.
+concurrency:
+  group: instagram-generate-review
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check for an already-pending review
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event.inputs.force_new }}" = "true" ]; then
+            echo "pending=0" >> "$GITHUB_OUTPUT"
+          else
+            count=$(gh issue list --repo ${{ github.repository }} --label pending-review --state open --json number --jq 'length')
+            echo "pending=$count" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Skip notice
+        if: steps.check.outputs.pending != '0'
+        run: echo "A post is already awaiting review — skipping generation until that issue is closed."
+
+      - name: Ensure labels exist
+        if: steps.check.outputs.pending == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create pending-review --repo ${{ github.repository }} --color FBCA04 --description "Awaiting approval before posting" --force
+          gh label create approved --repo ${{ github.repository }} --color 0E8A16 --description "Approved — will be published" --force
+          gh label create declined --repo ${{ github.repository }} --color B60205 --description "Declined — will not be published" --force
+
+      - name: Install dependencies
+        if: steps.check.outputs.pending == '0'
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Select next post + render graphic
+        if: steps.check.outputs.pending == '0'
+        id: generate
+        run: python3 scripts/generate_post.py
+
+      - name: Commit generated asset
+        if: steps.check.outputs.pending == '0'
+        run: |
+          git config user.name "pfa-content-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add content/generated state/rotation_state.json state/history.json
+          git commit -m "chore(content): generate post ${{ steps.generate.outputs.slug }}"
+          git push
+
+      - name: Resolve public image URL
+        if: steps.check.outputs.pending == '0'
+        id: url
+        run: |
+          echo "url=https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/${{ steps.generate.outputs.image_file }}" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for raw URL to become fetchable
+        if: steps.check.outputs.pending == '0'
+        run: |
+          for i in $(seq 1 20); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "${{ steps.url.outputs.url }}")
+            if [ "$code" = "200" ]; then
+              echo "Image URL is live."
+              exit 0
+            fi
+            echo "Attempt $i: HTTP $code, retrying in 5s..."
+            sleep 5
+          done
+          echo "::error::Raw image URL never became available: ${{ steps.url.outputs.url }}"
+          exit 1
+
+      - name: Open review issue
+        if: steps.check.outputs.pending == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/build_issue_body.py \
+            --meta "${{ steps.generate.outputs.meta_file }}" \
+            --image-url "${{ steps.url.outputs.url }}" \
+            > /tmp/issue_body.md
+          gh issue create \
+            --repo ${{ github.repository }} \
+            --title "Review: ${{ steps.generate.outputs.slug }}" \
+            --body-file /tmp/issue_body.md \
+            --label pending-review

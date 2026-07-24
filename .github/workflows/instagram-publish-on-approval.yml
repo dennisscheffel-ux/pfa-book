@@ -1,0 +1,95 @@
+name: Instagram Publish on Approval
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: instagram-publish-on-approval
+  cancel-in-progress: false
+
+jobs:
+  handle:
+    runs-on: ubuntu-latest
+    if: >
+      contains(github.event.issue.labels.*.name, 'pending-review') &&
+      (github.event.label.name == 'approved' || github.event.label.name == 'declined')
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests==2.32.3
+
+      - name: Extract slug from issue title
+        id: slug
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          echo "slug=${ISSUE_TITLE#Review: }" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to Instagram
+        if: github.event.label.name == 'approved'
+        id: publish
+        continue-on-error: true
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+        run: |
+          python3 scripts/publish_post.py \
+            --meta "content/generated/${{ steps.slug.outputs.slug }}.json" \
+            --image-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/content/generated/${{ steps.slug.outputs.slug }}.png"
+
+      - name: Mark declined
+        if: github.event.label.name == 'declined'
+        run: |
+          python3 -c "
+          import sys
+          sys.path.insert(0, 'scripts')
+          from lib import state
+          state.update_history_by_slug('${{ steps.slug.outputs.slug }}', status='declined')
+          "
+
+      - name: Commit state update
+        if: always()
+        run: |
+          git config user.name "pfa-content-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add state/history.json
+          git diff --cached --quiet || git commit -m "chore(content): resolve ${{ steps.slug.outputs.slug }} (${{ github.event.label.name }})"
+          git diff --cached --quiet || git push
+
+      - name: Close issue (declined)
+        if: github.event.label.name == 'declined'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue close ${{ github.event.issue.number }} --repo ${{ github.repository }} \
+            --comment "Declined — this post will not be published. The next candidate will generate on the regular schedule."
+
+      - name: Close issue (published)
+        if: github.event.label.name == 'approved' && steps.publish.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue close ${{ github.event.issue.number }} --repo ${{ github.repository }} \
+            --comment "✅ Published to Instagram. Media id: \`${{ steps.publish.outputs.media_id }}\`"
+
+      - name: Comment on failure (approved)
+        if: github.event.label.name == 'approved' && steps.publish.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
+            --body "❌ Publish failed — check this run's Actions log for details. The \`approved\` label is still set; remove and re-add it (or re-run this job) to retry once fixed."
+
+      - name: Fail the job if publish failed
+        if: github.event.label.name == 'approved' && steps.publish.outcome != 'success'
+        run: exit 1

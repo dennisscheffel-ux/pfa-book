@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Publishes an already-generated post to Instagram.
+"""Publishes an already-generated, human-approved post to Instagram.
 
 Expects generate_post.py to have already run (and its output image to already
 be pushed to a public URL, since the Instagram Graph API fetches images by
-URL — it will not accept a local file).
+URL — it will not accept a local file). Runs once a GitHub Issue for the post
+has been labeled "approved" — see .github/workflows/instagram-publish-on-approval.yml.
 
 Usage:
     python3 scripts/publish_post.py --meta content/generated/2026-07-21-ch_1a.json \
@@ -33,6 +34,7 @@ def main():
         meta = json.load(f)
 
     caption = meta["caption"]
+    slug = meta["slug"]
 
     if args.dry_run:
         print(f"[dry-run] Would publish {args.image_url}\n---\n{caption}\n---")
@@ -51,12 +53,17 @@ def main():
     try:
         media_id = instagram.post_image(ig_user_id, access_token, args.image_url, caption)
     except instagram.InstagramAPIError as e:
-        state.update_last_history(status="failed", error=str(e))
+        state.update_history_by_slug(slug, status="failed", error=str(e))
         print(f"Failed to publish: {e}", file=sys.stderr)
         sys.exit(1)
 
-    state.update_last_history(status="published", ig_media_id=media_id, image_url=args.image_url)
+    state.update_history_by_slug(slug, status="published", ig_media_id=media_id, image_url=args.image_url)
     print(f"Published. Instagram media id: {media_id}")
+
+    github_output = os.environ.get("GITHUB_OUTPUT")
+    if github_output:
+        with open(github_output, "a", encoding="utf-8") as f:
+            f.write(f"media_id={media_id}\n")
 
 
 if __name__ == "__main__":

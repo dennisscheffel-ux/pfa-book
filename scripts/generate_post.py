@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Selects the next post in the rotation, renders its graphic, and writes a
-caption/meta sidecar. Does NOT post to Instagram — that's publish_post.py,
-run after the generated image has been committed and pushed to a public URL.
+caption/meta sidecar. Does NOT post to Instagram — the workflow opens a
+GitHub Issue for human review instead, and publish_post.py only runs later,
+once that issue is labeled "approved".
 
 Usage:
     python3 scripts/generate_post.py
@@ -65,6 +66,7 @@ def main():
     cards.render_png(html_str, image_path)
 
     meta = {
+        "slug": slug,
         "item_id": item_id,
         "pillar": item["pillar"],
         "card_type": item["card_type"],
@@ -78,6 +80,7 @@ def main():
         f.write("\n")
 
     state.append_history({
+        "slug": slug,
         "date": today,
         "item_id": item_id,
         "pillar": item["pillar"],
@@ -85,7 +88,7 @@ def main():
         "cycle": cycle,
         "image_file": meta["image_file"],
         "caption_excerpt": caption[:100],
-        "status": "generated",
+        "status": "pending_review",
     })
 
     prune_old(args.retention_days)

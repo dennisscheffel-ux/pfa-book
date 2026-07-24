@@ -85,10 +85,16 @@ def append_history(record):
     return history
 
 
-def update_last_history(**fields):
+def update_history_by_slug(slug, **fields):
+    """Updates the history entry matching slug (date + item_id). Used by the
+    publish step, which now runs in a separate, later workflow run (after
+    human review) rather than immediately after generation, so "last entry"
+    is no longer a safe way to find the right record.
+    """
     history = load_history()
-    if not history:
-        raise RuntimeError("No history entries to update")
-    history[-1].update(fields)
-    save_history(history)
-    return history[-1]
+    for record in history:
+        if record.get("slug") == slug:
+            record.update(fields)
+            save_history(history)
+            return record
+    raise RuntimeError(f"No history entry found for slug {slug!r}")

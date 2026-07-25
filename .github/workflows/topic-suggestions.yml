@@ -1,0 +1,46 @@
+name: Weekly Topic Suggestions
+
+on:
+  schedule:
+    # 08:00 UTC every Monday — tops up the pending topic queue in the dashboard.
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+    inputs:
+      target_pending:
+        description: "Minimum number of topics to keep pending review"
+        type: number
+        default: 6
+
+permissions:
+  contents: write
+
+# Never let this race generate_post.py while it's writing state/topic_suggestions.json.
+concurrency:
+  group: instagram-generate-review
+  cancel-in-progress: false
+
+jobs:
+  suggest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Suggest topics
+        run: |
+          python3 scripts/suggest_topics.py --target-pending "${{ github.event.inputs.target_pending || 6 }}"
+
+      - name: Commit topic suggestions
+        run: |
+          git config user.name "pfa-content-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if [ -n "$(git status --porcelain state/topic_suggestions.json)" ]; then
+            git add state/topic_suggestions.json
+            git commit -m "chore(topics): weekly topic suggestions"
+            git push
+          else
+            echo "No new topic suggestions."
+          fi

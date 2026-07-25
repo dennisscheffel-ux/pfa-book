@@ -106,6 +106,15 @@ h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;font
 .row-meta{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.05em;color:var(--text-mid);font-variant-numeric:tabular-nums;white-space:nowrap}
 .empty-note{padding:1.5rem 0;color:var(--text-mid);font-size:0.85rem;font-style:italic}
 
+/* topics grid */
+.topics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin-top:0.5rem}
+.topic-card{background:var(--surface);border:1px solid var(--line);padding:1.5rem 1.65rem;display:flex;flex-direction:column;gap:0.75rem}
+.topic-eyebrow{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent-dim)}
+.topic-headline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.25rem;line-height:1.3;color:var(--text)}
+.topic-body{font-size:0.85rem;color:var(--text-dim);line-height:1.6}
+.topic-actions{display:flex;gap:0.75rem;margin-top:auto;padding-top:0.5rem}
+.topic-actions .btn-primary{padding:0.7em 1.2em;font-size:0.7rem}
+
 /* queue grid */
 .queue-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;margin-top:2rem}
 .queue-card{background:var(--surface);border:1px solid var(--line);overflow:hidden}

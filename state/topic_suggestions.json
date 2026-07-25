@@ -1,0 +1,68 @@
+[
+  {
+    "id": "topic_ai_tools",
+    "eyebrow": "AI & Production",
+    "headline": "AI won't finish your track for you.",
+    "body": "Generative tools can spit out loops in seconds, but they can't make creative decisions about what your track is trying to say. The bottleneck was never speed — it's judgment.",
+    "pull": "Tools generate options. Only you can generate meaning.",
+    "suggested_date": "2026-07-25",
+    "status": "pending",
+    "resolved_date": null,
+    "posted_slug": null
+  },
+  {
+    "id": "topic_reference_tracks",
+    "eyebrow": "Ear Training",
+    "headline": "You're referencing the wrong thing.",
+    "body": "Most producers A/B against a finished, mastered record while still in the creative stage — comparing apples to a whole orchard. Reference for energy and arrangement first, loudness last.",
+    "pull": "Compare intentions, not just decibels.",
+    "suggested_date": "2026-07-25",
+    "status": "pending",
+    "resolved_date": null,
+    "posted_slug": null
+  },
+  {
+    "id": "topic_perfectionism",
+    "eyebrow": "Producer Mindset",
+    "headline": "Perfectionism is procrastination in a nicer outfit.",
+    "body": "Endlessly tweaking a hi-hat for an hour feels like progress. It isn't. It's often a way to avoid the harder, scarier decisions further down the arrangement.",
+    "pull": "If you're polishing, ask what you're avoiding.",
+    "suggested_date": "2026-07-25",
+    "status": "pending",
+    "resolved_date": null,
+    "posted_slug": null
+  },
+  {
+    "id": "topic_track_graveyard",
+    "eyebrow": "Finishing Tracks",
+    "headline": "Your unfinished folder isn't a failure log.",
+    "body": "Every producer has a graveyard of 80%-done ideas. The issue isn't starting too much — it's never building a system that pulls ideas across the finish line.",
+    "pull": "Unfinished tracks aren't wasted — they're untriggered.",
+    "suggested_date": "2026-07-25",
+    "status": "pending",
+    "resolved_date": null,
+    "posted_slug": null
+  },
+  {
+    "id": "topic_two_bar_loop",
+    "eyebrow": "Arrangement",
+    "headline": "The 2-bar loop trap.",
+    "body": "Looping the same 2 bars for hours feels productive but teaches your ear nothing about tension and release. Real arrangement skill comes from finishing full journeys, even rough ones.",
+    "pull": "A loop tells you nothing about how a track breathes.",
+    "suggested_date": "2026-07-25",
+    "status": "pending",
+    "resolved_date": null,
+    "posted_slug": null
+  },
+  {
+    "id": "topic_sound_selection",
+    "eyebrow": "Sound Design",
+    "headline": "Sound selection is a decision, not a search.",
+    "body": "Scrolling through 400 kicks isn't sound design — it's decision avoidance disguised as diligence. The best producers narrow fast and commit, then shape what they've got.",
+    "pull": "Narrow the search. Widen the shaping.",
+    "suggested_date": "2026-07-25",
+    "status": "pending",
+    "resolved_date": null,
+    "posted_slug": null
+  }
+]

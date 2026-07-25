@@ -102,8 +102,9 @@ so at most one issue is ever open at a time.
 
 A local web app to review/approve posts with real one-click buttons (no
 need to go to GitHub and add labels by hand), preview what's coming up
-next in the rotation before it's generated, and edit the content bank in
-a form instead of hand-editing JSON.
+next in the rotation before it's generated, browse and accept/decline
+weekly topic ideas, and edit the content bank in a form instead of
+hand-editing JSON.
 
 1. Generate a **fine-grained personal access token** at
    [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new):
@@ -123,10 +124,15 @@ This app never talks to Instagram directly — clicking **Approve** just
 adds the `approved` label to the pending GitHub Issue via the GitHub API
 (same as adding it by hand), which is what the "Instagram Publish on
 Approval" workflow is already watching for. **Decline** works the same
-way with the `declined` label. The **Queue** tab renders a preview of the
-next several posts in rotation without generating or posting anything.
-The **Content** tab edits `content/copy_bank.json` directly on disk —
-commit and push the change yourself once you're happy with it.
+way with the `declined` label. The **Topics** tab shows the weekly queue
+from `scripts/suggest_topics.py`; Accept/Decline writes directly to
+`state/topic_suggestions.json` on disk — commit and push so the next
+`generate_post.py` run (and the hosted dashboard) picks it up. Accepted
+topics generate next, ahead of the normal rotation. The **Queue** tab
+renders a preview of the next several posts in rotation without
+generating or posting anything. The **Content** tab edits
+`content/copy_bank.json` directly on disk — commit and push the change
+yourself once you're happy with it.
 
 Never commit `dashboard/.env` — it holds a real token. It's already
 gitignored.
@@ -135,10 +141,10 @@ gitignored.
 
 The hosted version drops the **Queue** tab (rendering post previews needs
 a real browser, which doesn't run in a standard Python serverless
-function) and saves Content edits by committing straight to `main` via
-the GitHub API instead of writing to local disk. It also requires a
-password, since it's now a public URL with buttons that can trigger a
-real Instagram post.
+function) and saves Content edits and Topics Accept/Decline by committing
+straight to `main` via the GitHub API instead of writing to local disk.
+It also requires a password, since it's now a public URL with buttons
+that can trigger a real Instagram post.
 
 1. Generate a **fine-grained personal access token**, same as step 8, but
    with **both** permissions this time:

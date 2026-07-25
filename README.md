@@ -10,17 +10,28 @@
 
 ## How the system works
 
+**`scripts/suggest_topics.py`**, run weekly:
+
+Tops up a pending queue (default 6) of fresh content angles drawn from
+`content/topic_bank.json` — a curated, evergreen bank of niche topic ideas
+beyond the core 7-pillar copy — surfaced in the dashboard's **Topics** tab
+for you to Accept/Decline. Never-suggested topics come first; once the
+whole bank has been shown, the least-recently-suggested ones resurface.
+Tracked in `state/topic_suggestions.json`.
+
 **`scripts/generate_post.py`**, run on a schedule:
 
-1. Picks the next item from a round-robin rotation across 7 content
-   pillars (pain points, key insights, chapter teasers, testimonials,
-   credibility stats, offer breakdown, "is this your book?" qualifiers) —
-   see `scripts/lib/state.py`. No pillar repeats back-to-back, and the
-   full 30-item bank cycles before anything repeats, with new caption
-   wording each cycle.
-2. Renders a 1080×1350 on-brand PNG for that item (`scripts/lib/cards.py`),
+1. If a topic has been **Accepted** on the Topics tab, it jumps the queue:
+   generates from that topic next, ahead of the normal rotation.
+2. Otherwise, picks the next item from a round-robin rotation across 7
+   content pillars (pain points, key insights, chapter teasers,
+   testimonials, credibility stats, offer breakdown, "is this your book?"
+   qualifiers) — see `scripts/lib/state.py`. No pillar repeats
+   back-to-back, and the full 30-item bank cycles before anything repeats,
+   with new caption wording each cycle.
+3. Renders a 1080×1350 on-brand PNG for that item (`scripts/lib/cards.py`),
    matching the landing page's colors/fonts.
-3. Writes a caption from `scripts/lib/captions.py` (rotating templates +
+4. Writes a caption from `scripts/lib/captions.py` (rotating templates +
    hashtags, always ending with a link-in-bio CTA).
 
 The **"Instagram Generate + Review"** workflow commits that image, waits

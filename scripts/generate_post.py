@@ -9,6 +9,7 @@ Usage:
     python3 scripts/generate_post.py --retention-days 14
 """
 import argparse
+import hashlib
 import json
 import os
 import sys
@@ -17,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from lib import cards, captions, copy, state  # noqa: E402
+from lib import cards, captions, copy, state, topics  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 GENERATED_DIR = ROOT / "content" / "generated"
@@ -52,8 +53,24 @@ def main():
     grouped = copy.items_by_pillar(items)
     brand = bank["brand"]
 
-    item_id, cycle = state.next_item_id(grouped)
-    item = items[item_id]
+    accepted_topic = topics.next_accepted()
+    if accepted_topic:
+        item_id = accepted_topic["id"]
+        item = {
+            "id": item_id,
+            "pillar": "topic",
+            "card_type": "insight",
+            "eyebrow": accepted_topic["eyebrow"],
+            "headline": accepted_topic["headline"],
+            "body": accepted_topic["body"],
+            "pull": accepted_topic["pull"] or accepted_topic["headline"],
+        }
+        # Deterministic per-topic variant pick (no rotation pointer to draw from here).
+        cycle = int(hashlib.sha256(item_id.encode()).hexdigest(), 16) % 1000
+    else:
+        item_id, cycle = state.next_item_id(grouped)
+        item = items[item_id]
+
     caption = captions.render_caption(item, brand, cycle)
 
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -90,6 +107,9 @@ def main():
         "caption_excerpt": caption[:100],
         "status": "pending_review",
     })
+
+    if accepted_topic:
+        topics.mark_posted(item_id, slug)
 
     prune_old(args.retention_days)
 

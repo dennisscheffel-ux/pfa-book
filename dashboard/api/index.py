@@ -40,6 +40,8 @@ def index():
         show_queue=False,
         content_save_note="Edit the source material the system draws posts from. "
                            "Save commits directly to main on GitHub — no local disk here.",
+        topics_note="Accept/decline commits directly to main on GitHub. "
+                     "Accepted topics jump ahead of the normal rotation.",
     )
 
 
@@ -64,6 +66,30 @@ def api_resolve():
         return jsonify({"error": "issue_number is required"}), 400
     try:
         gh_client.resolve_issue(issue_number, decision)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 502
+    return jsonify({"ok": True})
+
+
+@app.route("/api/topics")
+def api_topics():
+    try:
+        return jsonify({"pending": gh_client.fetch_pending_topics()})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 502
+
+
+@app.route("/api/topics/resolve", methods=["POST"])
+def api_topics_resolve():
+    data = request.get_json(force=True)
+    topic_id = data.get("topic_id")
+    decision = data.get("decision")
+    if decision not in ("accepted", "declined"):
+        return jsonify({"error": "decision must be 'accepted' or 'declined'"}), 400
+    if not topic_id:
+        return jsonify({"error": "topic_id is required"}), 400
+    try:
+        gh_client.resolve_topic(topic_id, decision)
     except Exception as e:
         return jsonify({"error": str(e)}), 502
     return jsonify({"ok": True})

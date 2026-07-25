@@ -6,6 +6,7 @@ same whether the caller has a persistent filesystem or not.
 import base64
 import json
 import os
+from datetime import datetime, timezone
 
 import requests
 
@@ -15,6 +16,7 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 API_BASE = "https://api.github.com"
 RAW_BASE = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main"
 COPY_BANK_PATH = "content/copy_bank.json"
+TOPIC_STATE_PATH = "state/topic_suggestions.json"
 
 
 class GitHubClientError(RuntimeError):
@@ -82,6 +84,56 @@ def fetch_content():
     resp = requests.get(f"{RAW_BASE}/{COPY_BANK_PATH}", timeout=15)
     resp.raise_for_status()
     return resp.json()
+
+
+def fetch_pending_topics():
+    resp = requests.get(f"{RAW_BASE}/{TOPIC_STATE_PATH}", timeout=15)
+    resp.raise_for_status()
+    topics = resp.json()
+    return [t for t in topics if t.get("status") == "pending"]
+
+
+def resolve_topic(topic_id, decision):
+    """Accept/decline a suggested topic by committing the status change
+    straight to main via the Contents API (mirrors save_content_via_github).
+    Requires the token to have Contents: Read and write.
+    """
+    get_resp = requests.get(
+        f"{API_BASE}/repos/{GITHUB_REPO}/contents/{TOPIC_STATE_PATH}",
+        headers=_headers(),
+        timeout=15,
+    )
+    get_resp.raise_for_status()
+    payload = get_resp.json()
+    sha = payload["sha"]
+    topics = json.loads(base64.b64decode(payload["content"]).decode("utf-8"))
+
+    found = None
+    for t in topics:
+        if t["id"] == topic_id:
+            t["status"] = decision
+            t["resolved_date"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+            found = t
+            break
+    if not found:
+        raise GitHubClientError(f"Topic {topic_id!r} not found")
+
+    content_str = json.dumps(topics, indent=2, ensure_ascii=False) + "\n"
+    encoded = base64.b64encode(content_str.encode("utf-8")).decode("ascii")
+
+    put_resp = requests.put(
+        f"{API_BASE}/repos/{GITHUB_REPO}/contents/{TOPIC_STATE_PATH}",
+        headers=_headers(),
+        json={
+            "message": f"chore(topics): {decision} {topic_id}",
+            "content": encoded,
+            "sha": sha,
+            "branch": "main",
+        },
+        timeout=15,
+    )
+    put_resp.raise_for_status()
+    return found
 
 
 def save_content_via_github(data):

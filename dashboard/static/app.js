@@ -114,6 +114,63 @@ function capitalize(s) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
 }
 
+// ---- Topics tab ----
+async function loadTopics() {
+  const el = document.getElementById("topics-container");
+  try {
+    const res = await fetch("/api/topics");
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    renderTopics(data.pending);
+  } catch (e) {
+    el.innerHTML = `<div class="empty-card"><div class="headline">Couldn't load topics</div><p>${esc(e.message)}</p></div>`;
+  }
+}
+
+function renderTopics(pending) {
+  const el = document.getElementById("topics-container");
+  if (!pending || pending.length === 0) {
+    el.innerHTML = `<div class="empty-card"><div class="headline">Nothing to review</div><p>New topic ideas show up here weekly.</p></div>`;
+    return;
+  }
+  el.innerHTML = `<div class="topics-grid">${pending.map((t) => `
+    <div class="topic-card" data-id="${esc(t.id)}">
+      <div class="topic-eyebrow">${esc(t.eyebrow)}</div>
+      <div class="topic-headline">${esc(t.headline)}</div>
+      <p class="topic-body">${esc(t.body)}</p>
+      <div class="topic-actions">
+        <button class="btn-primary" data-accept="${esc(t.id)}">Accept</button>
+        <button class="btn-primary btn-decline" data-decline="${esc(t.id)}">Decline</button>
+      </div>
+    </div>`).join("")}</div>`;
+
+  el.querySelectorAll("[data-accept]").forEach((btn) => {
+    btn.addEventListener("click", () => resolveTopic(btn.dataset.accept, "accepted"));
+  });
+  el.querySelectorAll("[data-decline]").forEach((btn) => {
+    btn.addEventListener("click", () => resolveTopic(btn.dataset.decline, "declined"));
+  });
+}
+
+async function resolveTopic(topicId, decision) {
+  const card = document.querySelector(`.topic-card[data-id="${CSS.escape(topicId)}"]`);
+  const buttons = card.querySelectorAll("button");
+  buttons.forEach((b) => (b.disabled = true));
+  try {
+    const res = await fetch("/api/topics/resolve", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ topic_id: topicId, decision }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Request failed");
+    await loadTopics();
+  } catch (e) {
+    alert("Failed: " + e.message);
+    buttons.forEach((b) => (b.disabled = false));
+  }
+}
+
 // ---- Queue tab ----
 const loadQueueBtn = document.getElementById("load-queue-btn");
 if (loadQueueBtn) loadQueueBtn.addEventListener("click", loadQueue);
@@ -298,4 +355,5 @@ document.getElementById("save-content-btn").addEventListener("click", async () =
 
 // ---- Init ----
 loadReview();
+loadTopics();
 loadContent();

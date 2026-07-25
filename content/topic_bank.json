@@ -1,0 +1,214 @@
+{
+  "topics": [
+    {
+      "id": "topic_ai_tools",
+      "eyebrow": "AI & Production",
+      "headline": "AI won't finish your track for you.",
+      "body": "Generative tools can spit out loops in seconds, but they can't make creative decisions about what your track is trying to say. The bottleneck was never speed — it's judgment.",
+      "pull": "Tools generate options. Only you can generate meaning."
+    },
+    {
+      "id": "topic_reference_tracks",
+      "eyebrow": "Ear Training",
+      "headline": "You're referencing the wrong thing.",
+      "body": "Most producers A/B against a finished, mastered record while still in the creative stage — comparing apples to a whole orchard. Reference for energy and arrangement first, loudness last.",
+      "pull": "Compare intentions, not just decibels."
+    },
+    {
+      "id": "topic_perfectionism",
+      "eyebrow": "Producer Mindset",
+      "headline": "Perfectionism is procrastination in a nicer outfit.",
+      "body": "Endlessly tweaking a hi-hat for an hour feels like progress. It isn't. It's often a way to avoid the harder, scarier decisions further down the arrangement.",
+      "pull": "If you're polishing, ask what you're avoiding."
+    },
+    {
+      "id": "topic_track_graveyard",
+      "eyebrow": "Finishing Tracks",
+      "headline": "Your unfinished folder isn't a failure log.",
+      "body": "Every producer has a graveyard of 80%-done ideas. The issue isn't starting too much — it's never building a system that pulls ideas across the finish line.",
+      "pull": "Unfinished tracks aren't wasted — they're untriggered."
+    },
+    {
+      "id": "topic_two_bar_loop",
+      "eyebrow": "Arrangement",
+      "headline": "The 2-bar loop trap.",
+      "body": "Looping the same 2 bars for hours feels productive but teaches your ear nothing about tension and release. Real arrangement skill comes from finishing full journeys, even rough ones.",
+      "pull": "A loop tells you nothing about how a track breathes."
+    },
+    {
+      "id": "topic_sound_selection",
+      "eyebrow": "Sound Design",
+      "headline": "Sound selection is a decision, not a search.",
+      "body": "Scrolling through 400 kicks isn't sound design — it's decision avoidance disguised as diligence. The best producers narrow fast and commit, then shape what they've got.",
+      "pull": "Narrow the search. Widen the shaping."
+    },
+    {
+      "id": "topic_energy_curve",
+      "eyebrow": "Arrangement",
+      "headline": "Your track needs an energy curve, not a checklist.",
+      "body": "Intro-verse-drop isn't a formula, it's a shape. If you map the emotional rise and fall before you arrange, the sections almost write themselves.",
+      "pull": "Structure serves emotion — not the other way around."
+    },
+    {
+      "id": "topic_feedback_loop",
+      "eyebrow": "Growth",
+      "headline": "You're not getting feedback. You're getting reassurance.",
+      "body": "Posting a track and asking friends if it's good invites compliments, not critique. Real growth needs specific questions and people who'll actually tell you the truth.",
+      "pull": "Ask what's not working — never if it's good."
+    },
+    {
+      "id": "topic_daily_habit",
+      "eyebrow": "Consistency",
+      "headline": "Motivation is unreliable. Habit isn't.",
+      "body": "Waiting to feel like producing means some weeks you make nothing. A small, repeatable studio ritual — even 20 minutes — outperforms sporadic bursts of inspiration.",
+      "pull": "Systems don't care how you feel today."
+    },
+    {
+      "id": "topic_signature_sound_myth",
+      "eyebrow": "Identity",
+      "headline": "Your signature sound isn't a preset pack.",
+      "body": "No amount of sample packs will make your music sound like you — because 'you' isn't a sound, it's a set of decisions repeated over time.",
+      "pull": "Style is a pattern of choices, not a plugin chain."
+    },
+    {
+      "id": "topic_two_plugin_rule",
+      "eyebrow": "Workflow",
+      "headline": "Most tracks die from too many plugins, not too few.",
+      "body": "Chain-stacking six saturators to 'find the sound' usually buries what was already good about the source. Constraint is a creative tool, not a limitation.",
+      "pull": "If it's not working with two plugins, it's not a plugin problem."
+    },
+    {
+      "id": "topic_genre_trap",
+      "eyebrow": "Industry",
+      "headline": "Chasing the trending sub-genre is a trap.",
+      "body": "By the time a sound is trending on your feed, the artists who defined it have already moved on. Labels sign identity, not imitation.",
+      "pull": "Trends are the sound of yesterday's originality."
+    },
+    {
+      "id": "topic_finishing_speed",
+      "eyebrow": "Finishing Tracks",
+      "headline": "Speed isn't the goal. Momentum is.",
+      "body": "Finishing fast isn't about rushing quality — it's about removing the friction (indecision, disorganized sessions, no clear stages) that stalls you for weeks at a time.",
+      "pull": "Momentum compounds. Stalling resets you to zero."
+    },
+    {
+      "id": "topic_mixing_myth",
+      "eyebrow": "Mixing",
+      "headline": "EQ can't fix a bad arrangement decision.",
+      "body": "A muddy mix is often a muddy arrangement wearing a mixing costume. Clashing elements, poor sound choices and weak dynamics show up loudest at the mixdown stage — but they started much earlier.",
+      "pull": "The mix reveals problems. It doesn't cause them."
+    },
+    {
+      "id": "topic_label_pitching",
+      "eyebrow": "Career",
+      "headline": "Labels don't sign tracks. They sign trust.",
+      "body": "A single strong demo rarely opens a relationship — consistency, a clear identity, and tracks that sound intentional do. Pitching is a long game, not a lottery ticket.",
+      "pull": "One great track gets attention. A body of work gets signed."
+    },
+    {
+      "id": "topic_collab_mindset",
+      "eyebrow": "Collaboration",
+      "headline": "The best collaborators listen before they add.",
+      "body": "Jumping straight to 'here's my idea' in a session skips the part where you actually understand what the track is trying to become. Great collabs start with listening, not layering.",
+      "pull": "Add to the track, don't compete with it."
+    },
+    {
+      "id": "topic_hardware_itb_debate",
+      "eyebrow": "Studio Setup",
+      "headline": "Gear won't fix a workflow problem.",
+      "body": "A new synth or interface feels like progress, but if your real bottleneck is finishing tracks, more hardware just adds more decisions to make. Fix the process before you fix the rack.",
+      "pull": "New gear, same unfinished folder."
+    },
+    {
+      "id": "topic_dj_set_arrangement",
+      "eyebrow": "Arrangement",
+      "headline": "Arrange like you're DJing your own track.",
+      "body": "Filter sweeps, reverb tails, gradual energy shifts — the tools DJs use to blend two records are the same tools that make a single arrangement feel alive instead of sectioned.",
+      "pull": "Transitions are where the emotion lives."
+    },
+    {
+      "id": "topic_streaming_algorithm",
+      "eyebrow": "Industry",
+      "headline": "Don't produce for the algorithm. Produce for the ear.",
+      "body": "Chasing skip-rate hacks and hook-in-3-seconds formulas optimizes for a platform, not a listener — and it shows. The tracks that last are the ones built on real musical decisions.",
+      "pull": "Platforms change. Craft doesn't."
+    },
+    {
+      "id": "topic_practice_routine",
+      "eyebrow": "Skill Building",
+      "headline": "Practice sound design like an instrument, not a chore.",
+      "body": "Musicians drill scales without expecting a finished song every time. Producers rarely give themselves the same permission — every session doesn't need to end in a track.",
+      "pull": "Not every session needs a deliverable."
+    },
+    {
+      "id": "topic_first_15_minutes",
+      "eyebrow": "Workflow",
+      "headline": "The first 15 minutes decide the session.",
+      "body": "Opening a blank project and hunting for inspiration burns your best creative energy on logistics. A short capture ritual — mood, reference, starting sound — gets you into flow faster.",
+      "pull": "Don't spend your best energy on setup."
+    },
+    {
+      "id": "topic_authentic_vs_trendy",
+      "eyebrow": "Identity",
+      "headline": "Authentic and trendy are not opposites — but they're not the same thing.",
+      "body": "You can be inspired by what's moving without copying it. The line is whether the choice serves the track or serves the algorithm's current mood.",
+      "pull": "Inspiration is fuel. Imitation is a dead end."
+    },
+    {
+      "id": "topic_track_journal",
+      "eyebrow": "Growth",
+      "headline": "Track your decisions, not just your tracks.",
+      "body": "A short log of what worked, what stalled, and why — kept over months — teaches you more about your own process than any tutorial ever will.",
+      "pull": "Your past sessions are your best teacher."
+    },
+    {
+      "id": "topic_mastering_myth",
+      "eyebrow": "Mixing",
+      "headline": "Mastering isn't a magic loudness button.",
+      "body": "Sending a rough mix to mastering hoping it'll 'glue everything together' skips the actual glue — arrangement, mix balance, and intentional sound choices made earlier.",
+      "pull": "Mastering polishes decisions. It doesn't make them."
+    },
+    {
+      "id": "topic_creative_block",
+      "eyebrow": "Producer Mindset",
+      "headline": "Creative block is usually a decision backlog.",
+      "body": "Staring at a stalled project rarely means you've run out of ideas — it means too many open decisions are competing for attention at once. Narrow the choice, and the block often clears.",
+      "pull": "Block isn't empty. It's overloaded."
+    },
+    {
+      "id": "topic_setup_method",
+      "eyebrow": "Identity",
+      "headline": "Your 'setup' says more about your sound than your samples.",
+      "body": "The instruments, chains and go-to techniques you reach for by default shape your identity more than any individual sound choice — because they repeat across every track.",
+      "pull": "Repetition, not novelty, builds a signature."
+    },
+    {
+      "id": "topic_pattern_thinking",
+      "eyebrow": "Arrangement",
+      "headline": "Stop building tracks top to bottom.",
+      "body": "Writing linearly from bar one often means the drop is an afterthought. Building distinct mood patterns first — then sequencing them — gives every section its own identity.",
+      "pull": "Build the pieces before you build the puzzle."
+    },
+    {
+      "id": "topic_confidence_gap",
+      "eyebrow": "Producer Mindset",
+      "headline": "Skill isn't your bottleneck. Certainty is.",
+      "body": "Plenty of producers can technically execute a great track and still won't release it — because they can't tell if it's actually good. That's not a talent gap, it's a feedback gap.",
+      "pull": "You don't need more skill. You need more certainty."
+    },
+    {
+      "id": "topic_remix_culture",
+      "eyebrow": "Industry",
+      "headline": "Every 'original' style started as a remix of something else.",
+      "body": "Chasing total originality can freeze you before you start. The producers with the strongest identities usually got there by combining influences, not avoiding them.",
+      "pull": "Originality is combination, not isolation."
+    },
+    {
+      "id": "topic_session_limits",
+      "eyebrow": "Workflow",
+      "headline": "Unlimited studio time makes worse tracks.",
+      "body": "A hard deadline — even a self-imposed one — forces decisions instead of endless exploration. Constraints don't limit creativity, they focus it.",
+      "pull": "A deadline is a creative tool, not just a stressor."
+    }
+  ]
+}

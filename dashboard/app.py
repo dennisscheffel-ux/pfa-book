@@ -29,13 +29,13 @@ DASHBOARD_DIR = Path(__file__).resolve().parent
 ROOT = DASHBOARD_DIR.parent
 CACHE_DIR = DASHBOARD_DIR / ".cache"
 
+load_dotenv(DASHBOARD_DIR / ".env")
+
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(DASHBOARD_DIR))
-from lib import cards, captions, copy, state  # noqa: E402
+from lib import cards, captions, copy, state, topics  # noqa: E402
 import gh_client  # noqa: E402
 from auth import register_auth  # noqa: E402
-
-load_dotenv(DASHBOARD_DIR / ".env")
 
 if not gh_client.GITHUB_TOKEN:
     print(
@@ -59,6 +59,9 @@ def index():
         show_queue=True,
         content_save_note="Edit the source material the system draws posts from. "
                            "Save writes directly to content/copy_bank.json — commit & push when you're happy with it.",
+        topics_note="Accept/decline writes directly to state/topic_suggestions.json — "
+                     "commit & push so the next generate run (and the hosted dashboard) sees it. "
+                     "Accepted topics jump ahead of the normal rotation.",
     )
 
 
@@ -85,6 +88,28 @@ def api_resolve():
         gh_client.resolve_issue(issue_number, decision)
     except Exception as e:
         return jsonify({"error": str(e)}), 502
+    return jsonify({"ok": True})
+
+
+@app.route("/api/topics")
+def api_topics():
+    pending = [s for s in topics.load_suggestions() if s["status"] == "pending"]
+    return jsonify({"pending": pending})
+
+
+@app.route("/api/topics/resolve", methods=["POST"])
+def api_topics_resolve():
+    data = request.get_json(force=True)
+    topic_id = data.get("topic_id")
+    decision = data.get("decision")
+    if decision not in ("accepted", "declined"):
+        return jsonify({"error": "decision must be 'accepted' or 'declined'"}), 400
+    if not topic_id:
+        return jsonify({"error": "topic_id is required"}), 400
+    try:
+        topics.resolve(topic_id, decision)
+    except RuntimeError as e:
+        return jsonify({"error": str(e)}), 404
     return jsonify({"ok": True})
 
 

@@ -17,6 +17,7 @@
     </div>
     <nav class="tabs">
       <button class="tab-btn active" data-tab="review">Review</button>
+      <button class="tab-btn" data-tab="topics">Topics</button>
       {% if show_queue %}<button class="tab-btn" data-tab="queue">Queue</button>{% endif %}
       <button class="tab-btn" data-tab="content">Content</button>
     </nav>
@@ -31,6 +32,13 @@
       <div class="section-label">Recent Activity</div>
       <div id="recent-container" class="recent-list"><div class="loading">Loading…</div></div>
     </div>
+  </section>
+
+  <!-- TOPICS TAB -->
+  <section id="tab-topics" class="tab-panel">
+    <div class="section-label">Weekly Topic Suggestions</div>
+    <p class="tab-intro">{{ topics_note }}</p>
+    <div id="topics-container"><div class="loading">Loading…</div></div>
   </section>
 
   {% if show_queue %}

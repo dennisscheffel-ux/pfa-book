@@ -35,8 +35,30 @@ jobs:
         run: |
           echo "slug=${ISSUE_TITLE#Review: }" >> "$GITHUB_OUTPUT"
 
+      - name: Check if already resolved
+        id: check
+        run: |
+          status=$(python3 -c "
+          import json
+          with open('state/history.json', encoding='utf-8') as f:
+              history = json.load(f)
+          slug = '${{ steps.slug.outputs.slug }}'
+          record = next((r for r in history if r.get('slug') == slug), None)
+          print(record['status'] if record else 'unknown')
+          ")
+          echo "Current recorded status for ${{ steps.slug.outputs.slug }}: $status"
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+
+      - name: Comment and stop (already resolved)
+        if: steps.check.outputs.status != 'pending_review'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
+            --body "Ignoring the \`${{ github.event.label.name }}\` label — this post was already resolved (status: \`${{ steps.check.outputs.status }}\`), most likely from two labels being added close together. No second action taken."
+
       - name: Publish to Instagram
-        if: github.event.label.name == 'approved'
+        if: github.event.label.name == 'approved' && steps.check.outputs.status == 'pending_review'
         id: publish
         continue-on-error: true
         env:
@@ -48,7 +70,7 @@ jobs:
             --image-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/content/generated/${{ steps.slug.outputs.slug }}.png"
 
       - name: Mark declined
-        if: github.event.label.name == 'declined'
+        if: github.event.label.name == 'declined' && steps.check.outputs.status == 'pending_review'
         run: |
           python3 -c "
           import sys
@@ -69,7 +91,7 @@ jobs:
           fi
 
       - name: Close issue (declined)
-        if: github.event.label.name == 'declined'
+        if: github.event.label.name == 'declined' && steps.check.outputs.status == 'pending_review'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -77,7 +99,7 @@ jobs:
             --comment "Declined — this post will not be published. The next candidate will generate on the regular schedule."
 
       - name: Close issue (published)
-        if: github.event.label.name == 'approved' && steps.publish.outcome == 'success'
+        if: github.event.label.name == 'approved' && steps.check.outputs.status == 'pending_review' && steps.publish.outcome == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -85,7 +107,7 @@ jobs:
             --comment "✅ Published to Instagram. Media id: \`${{ steps.publish.outputs.media_id }}\`"
 
       - name: Comment on failure (approved)
-        if: github.event.label.name == 'approved' && steps.publish.outcome != 'success'
+        if: github.event.label.name == 'approved' && steps.check.outputs.status == 'pending_review' && steps.publish.outcome != 'success'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -93,5 +115,5 @@ jobs:
             --body "❌ Publish failed — check this run's Actions log for details. The \`approved\` label is still set; remove and re-add it (or re-run this job) to retry once fixed."
 
       - name: Fail the job if publish failed
-        if: github.event.label.name == 'approved' && steps.publish.outcome != 'success'
+        if: github.event.label.name == 'approved' && steps.check.outputs.status == 'pending_review' && steps.publish.outcome != 'success'
         run: exit 1

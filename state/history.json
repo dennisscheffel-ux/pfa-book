@@ -22,7 +22,9 @@
     "cycle": 1,
     "image_file": "content/generated/2026-07-24-get_framework.png",
     "caption_excerpt": "Part of what you get: The Flow Principle Framework.\n\nA complete production system: the 4 roles, 5 st",
-    "status": "declined",
-    "timestamp": "2026-07-24T21:27:31.447606+00:00"
+    "status": "published",
+    "timestamp": "2026-07-24T21:27:31.447606+00:00",
+    "ig_media_id": "18110058734068031",
+    "image_url": "https://raw.githubusercontent.com/dennisscheffel-ux/pfa-book/main/content/generated/2026-07-24-get_framework.png"
   }
 ]

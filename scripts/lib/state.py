@@ -63,6 +63,29 @@ def next_item_id(grouped_items):
     return item_id, cycle_used
 
 
+def peek_upcoming(grouped_items, count):
+    """Non-mutating preview of the next `count` (item_id, cycle) picks in the
+    rotation — same logic as next_item_id, but never advances or saves state.
+    Used by the local dashboard's queue preview.
+    """
+    state = load_rotation_state()
+    cycle = state["cycle"]
+    sequence = list(state["sequence"])
+    pointer = state["pointer"]
+
+    upcoming = []
+    while len(upcoming) < count:
+        if pointer >= len(sequence):
+            cycle += 1
+            sequence = _build_sequence(cycle, grouped_items)
+            pointer = 0
+            if not sequence:
+                break
+        upcoming.append((sequence[pointer], cycle))
+        pointer += 1
+    return upcoming
+
+
 def load_history():
     if HISTORY_PATH.exists():
         with open(HISTORY_PATH, encoding="utf-8") as f:

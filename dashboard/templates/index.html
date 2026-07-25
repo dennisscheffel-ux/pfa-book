@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Producer Flow Academy — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="brand">Producer Flow Academy — <span>Dashboard</span></div>
+      <h1>Content control room</h1>
+    </div>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="review">Review</button>
+      <button class="tab-btn" data-tab="queue">Queue</button>
+      <button class="tab-btn" data-tab="content">Content</button>
+    </nav>
+  </header>
+
+  <!-- REVIEW TAB -->
+  <section id="tab-review" class="tab-panel active">
+    <div class="section-label">Pending Review</div>
+    <div id="pending-container"><div class="loading">Loading…</div></div>
+
+    <div class="recent">
+      <div class="section-label">Recent Activity</div>
+      <div id="recent-container" class="recent-list"><div class="loading">Loading…</div></div>
+    </div>
+  </section>
+
+  <!-- QUEUE TAB -->
+  <section id="tab-queue" class="tab-panel">
+    <div class="section-label">Upcoming in Rotation</div>
+    <p class="tab-intro">Preview of what generates next, in order — nothing here is posted or opened for review yet.</p>
+    <button id="load-queue-btn" class="btn-primary">Render preview →</button>
+    <div id="queue-container" class="queue-grid"></div>
+  </section>
+
+  <!-- CONTENT TAB -->
+  <section id="tab-content" class="tab-panel">
+    <div class="section-label">Content Bank</div>
+    <p class="tab-intro">Edit the source material the system draws posts from. Save writes directly to <code>content/copy_bank.json</code> — commit &amp; push when you're happy with it.</p>
+    <div id="content-container"><div class="loading">Loading…</div></div>
+    <div class="content-save-bar">
+      <button id="save-content-btn" class="btn-primary">Save changes</button>
+      <span id="save-status"></span>
+    </div>
+  </section>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -98,6 +98,39 @@ daily at 16:00 UTC — edit the cron expression to change cadence/time). It
 skips generating a new candidate whenever one is already awaiting review,
 so at most one issue is ever open at a time.
 
+## 8. Run the local dashboard (optional but recommended)
+
+A local web app to review/approve posts with real one-click buttons (no
+need to go to GitHub and add labels by hand), preview what's coming up
+next in the rotation before it's generated, and edit the content bank in
+a form instead of hand-editing JSON.
+
+1. Generate a **fine-grained personal access token** at
+   [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new):
+   - Resource owner: you · Repository access: **Only this repository** → this repo
+   - Permissions: **Issues → Read and write** (nothing else needed)
+2. ```bash
+   cd dashboard
+   pip install -r requirements.txt
+   playwright install chromium   # only needed once, for the Queue preview tab
+   cp .env.example .env
+   # edit .env and paste your token into GITHUB_TOKEN
+   python3 app.py
+   ```
+3. Open [http://localhost:5000](http://localhost:5000).
+
+This app never talks to Instagram directly — clicking **Approve** just
+adds the `approved` label to the pending GitHub Issue via the GitHub API
+(same as adding it by hand), which is what the "Instagram Publish on
+Approval" workflow is already watching for. **Decline** works the same
+way with the `declined` label. The **Queue** tab renders a preview of the
+next several posts in rotation without generating or posting anything.
+The **Content** tab edits `content/copy_bank.json` directly on disk —
+commit and push the change yourself once you're happy with it.
+
+Never commit `dashboard/.env` — it holds a real token. It's already
+gitignored.
+
 ## Customizing content
 
 - `content/copy_bank.json` — every fact, quote, chapter blurb, and

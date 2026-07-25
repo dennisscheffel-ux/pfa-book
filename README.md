@@ -28,12 +28,14 @@ for it to be publicly fetchable, and opens a GitHub Issue with the preview
 and caption — then stops. It skips generating a new candidate whenever one
 is already awaiting review, so at most one is ever open at once.
 
-You review it on the Issue itself, or from the **local dashboard**
-(`dashboard/` — run `python3 dashboard/app.py` and open
-[localhost:5000](http://localhost:5000), see [SETUP.md](SETUP.md#8-run-the-local-dashboard-optional-but-recommended))
-which adds real one-click Approve/Decline buttons, a preview of what's
-coming up next in the rotation, and a form for editing the content bank.
-Either way, resolving it means labeling the issue:
+You review it on the Issue itself, or from the **dashboard** (`dashboard/`)
+— run it locally (`python3 dashboard/app.py`, includes a Queue preview tab)
+or host it on Vercel for access from anywhere (`dashboard/api/`, password
+protected, no Queue tab since that needs a real browser). See
+[SETUP.md](SETUP.md#8-run-the-local-dashboard-optional-but-recommended)
+for both. Either way it adds real one-click Approve/Decline buttons and a
+form for editing the content bank, instead of adding GitHub labels or
+hand-editing JSON by hand. Resolving a post means labeling its issue:
 - **`approved`** → the **"Instagram Publish on Approval"** workflow calls
   `scripts/publish_post.py`, which actually posts to Instagram via the
   Graph API, then closes the issue with the resulting media id.

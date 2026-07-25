@@ -17,7 +17,7 @@
     </div>
     <nav class="tabs">
       <button class="tab-btn active" data-tab="review">Review</button>
-      <button class="tab-btn" data-tab="queue">Queue</button>
+      {% if show_queue %}<button class="tab-btn" data-tab="queue">Queue</button>{% endif %}
       <button class="tab-btn" data-tab="content">Content</button>
     </nav>
   </header>
@@ -33,6 +33,7 @@
     </div>
   </section>
 
+  {% if show_queue %}
   <!-- QUEUE TAB -->
   <section id="tab-queue" class="tab-panel">
     <div class="section-label">Upcoming in Rotation</div>
@@ -40,11 +41,12 @@
     <button id="load-queue-btn" class="btn-primary">Render preview →</button>
     <div id="queue-container" class="queue-grid"></div>
   </section>
+  {% endif %}
 
   <!-- CONTENT TAB -->
   <section id="tab-content" class="tab-panel">
     <div class="section-label">Content Bank</div>
-    <p class="tab-intro">Edit the source material the system draws posts from. Save writes directly to <code>content/copy_bank.json</code> — commit &amp; push when you're happy with it.</p>
+    <p class="tab-intro">{{ content_save_note }}</p>
     <div id="content-container"><div class="loading">Loading…</div></div>
     <div class="content-save-bar">
       <button id="save-content-btn" class="btn-primary">Save changes</button>

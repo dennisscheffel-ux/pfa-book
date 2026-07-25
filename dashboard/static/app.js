@@ -115,7 +115,8 @@ function capitalize(s) {
 }
 
 // ---- Queue tab ----
-document.getElementById("load-queue-btn").addEventListener("click", loadQueue);
+const loadQueueBtn = document.getElementById("load-queue-btn");
+if (loadQueueBtn) loadQueueBtn.addEventListener("click", loadQueue);
 
 async function loadQueue() {
   const btn = document.getElementById("load-queue-btn");

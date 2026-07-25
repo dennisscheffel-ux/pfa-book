@@ -4,3 +4,4 @@ __pycache__/
 .claude/settings.local.json
 dashboard/.env
 dashboard/.cache/
+dashboard/.vercel/

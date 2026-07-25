@@ -131,6 +131,38 @@ commit and push the change yourself once you're happy with it.
 Never commit `dashboard/.env` — it holds a real token. It's already
 gitignored.
 
+## 9. Host the dashboard on Vercel (optional — access it from anywhere)
+
+The hosted version drops the **Queue** tab (rendering post previews needs
+a real browser, which doesn't run in a standard Python serverless
+function) and saves Content edits by committing straight to `main` via
+the GitHub API instead of writing to local disk. It also requires a
+password, since it's now a public URL with buttons that can trigger a
+real Instagram post.
+
+1. Generate a **fine-grained personal access token**, same as step 8, but
+   with **both** permissions this time:
+   - **Issues → Read and write**
+   - **Contents → Read and write** (needed so Content-tab saves can commit)
+2. On [vercel.com](https://vercel.com), **Add New → Project → Import** this
+   GitHub repo.
+3. In the import screen, set **Root Directory** to `dashboard`. Vercel
+   should auto-detect the Python runtime from `dashboard/vercel.json`.
+4. Add these **Environment Variables** in the project settings before
+   deploying:
+
+   | Name | Value |
+   |------|-------|
+   | `GITHUB_TOKEN` | the token from step 1 |
+   | `GITHUB_REPO` | `dennisscheffel-ux/pfa-book` |
+   | `SECRET_KEY` | any long random string (used to sign the login session — generate one with `python3 -c "import secrets; print(secrets.token_hex(32))"`) |
+   | `DASHBOARD_PASSWORD` | a password you choose — this is what gates access to the whole app |
+
+5. Deploy. Visit the URL Vercel gives you, enter the password, and you're in.
+
+Redeploys happen automatically on every push to `main` once connected —
+no further action needed after this one-time setup.
+
 ## Customizing content
 
 - `content/copy_bank.json` — every fact, quote, chapter blurb, and

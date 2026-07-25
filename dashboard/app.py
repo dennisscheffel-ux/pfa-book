@@ -11,13 +11,17 @@ Then open http://localhost:5000. Approve/Decline call the GitHub API
 directly (adding the "approved"/"declined" label to the pending review
 issue), which is what the "Instagram Publish on Approval" GitHub Actions
 workflow watches for — this app never talks to Instagram itself.
+
+For the hosted (Vercel) version, see dashboard/api/index.py — it shares
+gh_client.py and auth.py with this file but drops the Queue tab (no
+Playwright in a serverless function) and saves content via the GitHub API
+instead of local disk.
 """
 import json
 import os
 import sys
 from pathlib import Path
 
-import requests
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, send_from_directory
 
@@ -26,14 +30,14 @@ ROOT = DASHBOARD_DIR.parent
 CACHE_DIR = DASHBOARD_DIR / ".cache"
 
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(DASHBOARD_DIR))
 from lib import cards, captions, copy, state  # noqa: E402
+import gh_client  # noqa: E402
+from auth import register_auth  # noqa: E402
 
 load_dotenv(DASHBOARD_DIR / ".env")
 
-GITHUB_REPO = os.environ.get("GITHUB_REPO", "dennisscheffel-ux/pfa-book")
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
-
-if not GITHUB_TOKEN:
+if not gh_client.GITHUB_TOKEN:
     print(
         "GITHUB_TOKEN is not set. Copy dashboard/.env.example to dashboard/.env "
         "and fill it in (see SETUP.md for how to generate one).",
@@ -41,63 +45,29 @@ if not GITHUB_TOKEN:
     )
     sys.exit(1)
 
-API_BASE = "https://api.github.com"
-RAW_BASE = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main"
 COPY_BANK_PATH = ROOT / "content" / "copy_bank.json"
 
 app = Flask(__name__)
-
-
-def gh_headers():
-    return {
-        "Authorization": f"Bearer {GITHUB_TOKEN}",
-        "Accept": "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-    }
-
-
-def fetch_pending():
-    resp = requests.get(
-        f"{API_BASE}/repos/{GITHUB_REPO}/issues",
-        headers=gh_headers(),
-        params={"labels": "pending-review", "state": "open"},
-        timeout=15,
-    )
-    resp.raise_for_status()
-    issues = resp.json()
-    if not issues:
-        return None
-    issue = issues[0]
-    slug = issue["title"].removeprefix("Review: ")
-    return {
-        "number": issue["number"],
-        "slug": slug,
-        "html_url": issue["html_url"],
-        "image_url": f"{RAW_BASE}/content/generated/{slug}.png",
-        "body": issue["body"],
-    }
-
-
-def fetch_history():
-    resp = requests.get(f"{RAW_BASE}/state/history.json", timeout=15)
-    resp.raise_for_status()
-    history = resp.json()
-    resolved = [r for r in history if r.get("status") in ("published", "declined", "failed")]
-    resolved.sort(key=lambda r: r.get("timestamp", ""), reverse=True)
-    return resolved[:8]
+app.secret_key = os.environ.get("SECRET_KEY", "local-dev-only-not-secret")
+register_auth(app)
 
 
 @app.route("/")
 def index():
-    return render_template("index.html", repo=GITHUB_REPO)
+    return render_template(
+        "index.html",
+        show_queue=True,
+        content_save_note="Edit the source material the system draws posts from. "
+                           "Save writes directly to content/copy_bank.json — commit & push when you're happy with it.",
+    )
 
 
 @app.route("/api/state")
 def api_state():
     try:
-        pending = fetch_pending()
-        recent = fetch_history()
-    except requests.RequestException as e:
+        pending = gh_client.fetch_pending()
+        recent = gh_client.fetch_history()
+    except Exception as e:
         return jsonify({"error": str(e)}), 502
     return jsonify({"pending": pending, "recent": recent})
 
@@ -111,15 +81,10 @@ def api_resolve():
         return jsonify({"error": "decision must be 'approved' or 'declined'"}), 400
     if not issue_number:
         return jsonify({"error": "issue_number is required"}), 400
-
-    resp = requests.post(
-        f"{API_BASE}/repos/{GITHUB_REPO}/issues/{issue_number}/labels",
-        headers=gh_headers(),
-        json={"labels": [decision]},
-        timeout=15,
-    )
-    if not resp.ok:
-        return jsonify({"error": resp.text}), resp.status_code
+    try:
+        gh_client.resolve_issue(issue_number, decision)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 502
     return jsonify({"ok": True})
 
 

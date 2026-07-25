@@ -6,7 +6,7 @@
     "card_type": "stat",
     "cycle": 1,
     "image_file": "content/generated/2026-07-24-labels.png",
-    "caption_excerpt": "3 — Major labels: Diynamic, Defected, Get Physical.\n\nEvery page of the book is built on this, not on",
+    "caption_excerpt": "3 \u2014 Major labels: Diynamic, Defected, Get Physical.\n\nEvery page of the book is built on this, not on",
     "status": "published",
     "timestamp": "2026-07-24T21:14:32.613850+00:00",
     "slug": "2026-07-24-labels",
@@ -22,7 +22,7 @@
     "cycle": 1,
     "image_file": "content/generated/2026-07-24-get_framework.png",
     "caption_excerpt": "Part of what you get: The Flow Principle Framework.\n\nA complete production system: the 4 roles, 5 st",
-    "status": "pending_review",
+    "status": "declined",
     "timestamp": "2026-07-24T21:27:31.447606+00:00"
   }
 ]
